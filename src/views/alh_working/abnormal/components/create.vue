@@ -5,17 +5,17 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="设备名称" prop="customerCode">
-              <el-input v-model="temp.customerCode" />
+              <el-input v-model="temp.customerName1" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="异常" prop="customerName">
-              <el-input v-model="temp.customerName" />
+              <el-input v-model="temp.customerName2" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="异常上报时间" prop="customerName">
-              <el-input v-model="temp.dutyParagraph" />
+              <el-input v-model="temp.customerName3" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -37,9 +37,9 @@ export default {
       title: '新增',
       visible: false,
       temp: {
-        customerCode: '',
-        customerName: '',
-        dutyParagraph: ''
+        customerName1: '',
+        customerName2: '',
+        customerName3: ''
       },
       rules: {}
     }
@@ -52,7 +52,8 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.visible = false
-          this.$parent.getList() // 从当前组件调用其父组件的方法 getList
+          this.$emit('submit', this.temp)
+          this.temp = {} // 从当前组件调用其父组件的方法 getList
           this.$message({
             type: 'success',
             message: '操作成功'

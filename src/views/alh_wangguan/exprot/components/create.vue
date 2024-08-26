@@ -1,89 +1,102 @@
 <template>
-    <div>
-        <el-dialog :title="title" :visible.sync="visible" style="padding-bottom: 5vh" width="50%">
-            <el-form ref="dataForm" :model="temp" label-position="left" label-width="auto" :rules="rules">
-                <el-row>
-                    <el-col :span="12">
-                        <el-form-item label="配置名称" prop="customerCode">
-                            <el-input v-model="temp.customerCode" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="地址名称" prop="customerName">
-                            <el-input v-model="temp.customerName" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="端口" prop="customerName">
-                            <el-input v-model="temp.customerName" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="消息发布者" prop="customerName">
-                            <el-input v-model="temp.customerName" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="消息主题" prop="customerName">
-                            <el-input v-model="temp.customerName" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="加密类型" prop="customerName">
-                            <el-input v-model="temp.customerName" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="管理状态" prop="customerName">
-                            <el-input v-model="temp.customerName" />
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="visible = false">取消</el-button>
-                <el-button type="primary" @click="submitForm">确定</el-button>
-            </div>
-        </el-dialog>
-    </div>
+  <div>
+    <el-dialog :title="title" :visible.sync="visible" style="padding-bottom: 5vh" width="50%">
+      <el-form ref="dataForm" :model="temp" label-position="left" label-width="auto" :rules="rules">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="配置名称" prop="customerCode">
+              <el-input v-model="temp.customerName1" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="地址名称" prop="customerName">
+              <el-input v-model="temp.customerName2" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="目标类型" prop="customerName">
+              <el-input v-model="temp.customerName3" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="协议" prop="customerName">
+              <el-input v-model="temp.customerName4" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="端口" prop="customerName">
+              <el-input v-model="temp.customerName5" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="消息发布者" prop="customerName">
+              <el-input v-model="temp.customerName6" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="消息主题" prop="customerName">
+              <el-input v-model="temp.customerName7" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="加密类型" prop="customerName">
+              <el-input v-model="temp.customerName8" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="管理状态" prop="customerName">
+              <el-input v-model="temp.customerName9" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visible = false">取消</el-button>
+        <el-button type="primary" @click="submitForm">确定</el-button>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            title: '新增',
-            visible: false,
-            temp: {
-                customerCode: '',
-                customerName: '',
-                dutyParagraph: '',
-                type1: '',
-                type2: '',
-                type3: '',
-                product: '',
-            },
-            rules: {}
-        }
-    },
-    components: {
-    },
-    methods: {
-        show(val) {
-            this.visible = true
-        },
-        submitForm() {
-            this.$refs['dataForm'].validate((valid) => {
-                if (valid) {
-                    this.visible = false
-                    this.$parent.getList()
-                    this.$message({
-                        type: 'success',
-                        message: '操作成功'
-                    })
-                }
-            })
-        }
+  components: {
+  },
+  data() {
+    return {
+      title: '新增',
+      visible: false,
+      temp: {
+        customerName1: '',
+        customerName2: '',
+        customerName3: '',
+        customerName4: '',
+        customerName5: '',
+        customerName6: '',
+        customerName7: '',
+        customerName8: '',
+        customerName9: ''
+      },
+      rules: {}
     }
+  },
+  methods: {
+    show(val) {
+      this.visible = true
+    },
+    submitForm() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          this.visible = false
+          this.$emit('submit', this.temp)
+          this.temp = {}
+          this.$message({
+            type: 'success',
+            message: '操作成功'
+          })
+        }
+      })
+    }
+  }
 }
 </script>

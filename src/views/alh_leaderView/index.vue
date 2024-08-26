@@ -100,6 +100,7 @@ export default {
   }
   .dashboard-list {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
   }
   .dashboard-detail-container {

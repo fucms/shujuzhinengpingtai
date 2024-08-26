@@ -1,105 +1,135 @@
 <template>
-    <div class="app-container">
-        <div class="filter-container">
-            <!-- <el-input v-model="listQuery.filter" style="width: 200px" class="filter-item"
+  <div class="app-container">
+    <div class="filter-container">
+      <!-- <el-input v-model="listQuery.filter" style="width: 200px" class="filter-item"
                 @keyup.enter.native="handleFilter" /> -->
-            <el-form :inline="true" :model="listQuery" class="demo-form-inline">
-                <el-form-item label="设备名称">
-                    <el-input v-model="listQuery.filter" placeholder="请输入设备名称"></el-input>
-                </el-form-item>
-                <el-form-item label="设备位置">
-                    <el-input v-model="listQuery.filter" placeholder="请输入设备位置"></el-input>
-                </el-form-item>
-                <el-form-item label="IP地址">
-                    <el-input v-model="listQuery.filter" placeholder="请输入IP地址"></el-input>
-                </el-form-item>
-                <el-form-item label="MAC地址">
-                    <el-input v-model="listQuery.filter" placeholder="请输入MAC地址"></el-input>
-                </el-form-item>
-                <el-form-item label="地区">
-                    <el-input v-model="listQuery.filter" placeholder="请输入地区"></el-input>
-                </el-form-item>
-                <el-form-item label="序列号">
-                    <el-input v-model="listQuery.filter" placeholder="请输入序列号"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-                        搜索
-                    </el-button>
-                    <el-button class="filter-item" style="margin-left: 10px" type="primary" icon="el-icon-plus"
-                        @click="handleCreate">新增</el-button>
-                    <el-button class="filter-item" style="margin-left: 10px" type="primary" icon="el-icon-bottom"
-                        @click="handleImport">导入</el-button>
-                    <el-button class="filter-item" style="margin-left: 10px" type="primary" icon="el-icon-top"
-                        @click="handleDownload">导出</el-button>
-                </el-form-item>
-            </el-form>
+      <el-form :inline="true" :model="listQuery" class="demo-form-inline">
+        <el-form-item label="设备名称">
+          <el-input v-model="listQuery.filter1" placeholder="请输入设备名称" />
+        </el-form-item>
+        <el-form-item label="设备位置">
+          <el-input v-model="listQuery.filter2" placeholder="请输入设备位置" />
+        </el-form-item>
+        <el-form-item label="IP地址">
+          <el-input v-model="listQuery.filter3" placeholder="请输入IP地址" />
+        </el-form-item>
+        <el-form-item label="MAC地址">
+          <el-input v-model="listQuery.filter4" placeholder="请输入MAC地址" />
+        </el-form-item>
+        <el-form-item label="地区">
+          <el-input v-model="listQuery.filter5" placeholder="请输入地区" />
+        </el-form-item>
+        <el-form-item label="序列号">
+          <el-input v-model="listQuery.filter6" placeholder="请输入序列号" />
+        </el-form-item>
+        <el-form-item>
+          <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+            搜索
+          </el-button>
+          <el-button
+            class="filter-item"
+            style="margin-left: 10px"
+            type="primary"
+            icon="el-icon-plus"
+            @click="handleCreate"
+          >新增</el-button>
+          <el-button
+            class="filter-item"
+            style="margin-left: 10px"
+            type="primary"
+            icon="el-icon-bottom"
+            @click="handleImport"
+          >导入</el-button>
+          <el-button
+            class="filter-item"
+            style="margin-left: 10px"
+            type="primary"
+            icon="el-icon-top"
+            @click="handleDownload"
+          >导出</el-button>
+        </el-form-item>
+      </el-form>
 
+      <el-table
+        :key="tableKey"
+        v-loading="listLoading"
+        :data="list"
+        border
+        fit
+        highlight-current-row
+        style="width: 100%"
+      >
+        <el-table-column label="序号" prop="index" align="center">
+          <template slot-scope="{ row }">
+            <span>{{ row.index }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="设备名称" prop="code" align="center">
+          <template slot-scope="{ row }">
+            <span>{{ row.code1 }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="设备位置" prop="code" align="center">
+          <template slot-scope="{ row }">
+            <span>{{ row.code2 }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="IP地址" prop="code" align="center">
+          <template slot-scope="{ row }">
+            <span>{{ row.code3 }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="MAC地址" prop="code" align="center">
+          <template slot-scope="{ row }">
+            <span>{{ row.code4 }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="地区" prop="code" align="center">
+          <template slot-scope="{ row }">
+            <span>{{ row.address }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="序列号" prop="code" align="center">
+          <template slot-scope="{ row }">
+            <span>{{ row.code5 }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="状态" prop="code" align="center">
+          <template slot-scope="{ row }">
+            <el-tag :type="row.type == 1 ? 'primary' : 'danger'">{{ row.type == 1 ? '运行中' : '停止' }}</el-tag>
+          </template>
+        </el-table-column>
 
-            <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row
-                style="width: 100%">
-                <el-table-column label="序号" prop="index" align="center">
-                    <template slot-scope="{ row }">
-                        <span>{{ row.index }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column label="设备名称" prop="code" align="center">
-                    <template slot-scope="{ row }">
-                        <span>{{ row.code }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column label="设备位置" prop="code" align="center">
-                    <template slot-scope="{ row }">
-                        <span>{{ row.code }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column label="IP地址" prop="code" align="center">
-                    <template slot-scope="{ row }">
-                        <span>{{ row.code }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column label="MAC地址" prop="code" align="center">
-                    <template slot-scope="{ row }">
-                        <span>{{ row.code }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column label="地区" prop="code" align="center">
-                    <template slot-scope="{ row }">
-                        <span>{{ row.address }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column label="序列号" prop="code" align="center">
-                    <template slot-scope="{ row }">
-                        <span>{{ row.code }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column label="状态" prop="code" align="center">
-                    <template slot-scope="{ row }">
-                        <el-tag :type="row.type == 1 ? 'primary' : 'danger'">{{ row.type == 1 ? '运行中' : '停止' }}</el-tag>
-                    </template>
-                </el-table-column>
+        <el-table-column label="操作" align="center" fixed="right" width="240">
+          <template slot-scope="{ row }">
+            <el-button type="primary" size="mini">配置</el-button>
+            <el-button type="primary" size="mini" @click="handleUpdate(row)">编辑</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
 
-                <el-table-column label="操作" align="center" fixed="right" width="240">
-                    <template slot-scope="{ row }">
-                        <el-button type="primary" size="mini">配置</el-button>
-                        <el-button type="primary" size="mini" @click="handleUpdate(row)">编辑</el-button>
-                        <el-button size="mini" type="danger" @click="handleDelete(row)">删除</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-
-            <!-- 分页 -->
-            <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit"
-                @pagination="getList" />
-            <!-- 导入 -->
-            <UploadDownExcel ref="UploadDownExcel" :href="href" :down-load-text="downLoadText"
-                @uploadTableList="uploadTableList" />
-            <!-- 新增 -->
-            <Create ref="create" />
-            <!-- 编辑 -->
-            <Edit ref="edit" />
-        </div>
+      <!-- 分页 -->
+      <pagination
+        v-show="total > 0"
+        :total="total"
+        :page.sync="listQuery.page"
+        :limit.sync="listQuery.limit"
+        @pagination="getList"
+      />
+      <!-- 导入 -->
+      <UploadDownExcel
+        ref="UploadDownExcel"
+        :href="href"
+        :down-load-text="downLoadText"
+        @uploadTableList="uploadTableList"
+      />
+      <!-- 新增 -->
+      <Create ref="create" @submit="create" />
+      <!-- 编辑 -->
+      <Edit ref="edit" />
     </div>
+  </div>
 </template>
 
 <script>
@@ -110,63 +140,79 @@ import Create from './components/create.vue'
 import Edit from './components/edit.vue'
 import { levelTypeColor, customerStatusColor } from '@/filters/components/customerType'
 export default {
-    components: {
-        Pagination,
-        UploadDownExcel,
-        Create,
-        Edit,
-    },
-    data() {
-        return {
-            tableKey: 0,
-            list: [],
-            listLoading: true,
-            listQuery: {
-                page: 1,
-                limit: 10,
-                filter: ''
-            },
-            total: 0,
-            href: '/template/默认文件.xlsx',
-            downLoadText: '默认文件.xlsx'
-        }
-    },
-    computed: {},
-    mounted() {
-        this.getList()
-    },
-    methods: {
-        getList() {
-            this.listLoading = true
-            getList().then(res => {
-                this.list = res.items.map((item, index) => {
-                    item.levelTypeColor = levelTypeColor(item.level)
-                    item.customerStatusColor = customerStatusColor(item.status)
-                    return {
-                        ...item,
-                        index: index + 1
-                    }
-                })
-                this.total = res.total
-                this.listLoading = false
-            })
-        },
-        handleFilter() { },
-        // 导入组件弹出
-        handleImport() {
-            this.$refs.UploadDownExcel.show()
-        },
-        // 导入文件
-        uploadTableList(val) { },
-        handleCreate() {
-            this.$refs.create.show()
-        },
-        handleUpdate(val) {
-            this.$refs.edit.show(val)
-        },
-        handleDelete() { },
-        handleDownload() { },
+  components: {
+    Pagination,
+    UploadDownExcel,
+    Create,
+    Edit
+  },
+  data() {
+    return {
+      tableKey: 0,
+      list: [],
+      listLoading: true,
+      listQuery: {
+        page: 1,
+        limit: 10,
+        filter1: '',
+        filter2: '',
+        filter3: '',
+        filter4: '',
+        filter5: '',
+        filter6: ''
+      },
+      total: 0,
+      href: '/template/默认文件.xlsx',
+      downLoadText: '默认文件.xlsx'
     }
+  },
+  computed: {},
+  mounted() {
+    this.getList()
+  },
+  methods: {
+    getList() {
+      this.listLoading = true
+      getList().then(res => {
+        this.list = res.items.map((item, index) => {
+          item.levelTypeColor = levelTypeColor(item.level)
+          item.customerStatusColor = customerStatusColor(item.status)
+          return {
+            ...item,
+            index: index + 1
+          }
+        })
+        this.total = res.total
+        this.listLoading = false
+      })
+    },
+    create(form) {
+      this.list.push({
+        code1: form.customerName1,
+        code2: form.customerName2,
+        code3: form.customerName3,
+        code4: form.customerName4,
+        code5: form.customerName5,
+        type: form.customerName6,
+        address: form.address
+      })
+    },
+    handleFilter() { },
+    // 导入组件弹出
+    handleImport() {
+      this.$refs.UploadDownExcel.show()
+    },
+    // 导入文件
+    uploadTableList(val) { },
+    handleCreate() {
+      this.$refs.create.show()
+    },
+    handleUpdate(val) {
+      this.$refs.edit.show(val)
+    },
+    handleDelete() { },
+    handleDownload() { }
+  }
 }
 </script>
 
