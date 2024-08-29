@@ -4,14 +4,14 @@
       <!-- <el-input v-model="listQuery.filter" style="width: 200px" class="filter-item"
                 @keyup.enter.native="handleFilter" /> -->
       <el-form :inline="true" :model="listQuery" class="demo-form-inline">
-        <el-form-item label="服务名称">
-          <el-input v-model="listQuery.filter1" placeholder="请输入服务名称" />
+        <el-form-item label="规则名称">
+          <el-input v-model="listQuery.filter1" placeholder="请输入规则名称" />
         </el-form-item>
-        <el-form-item label="服务别名">
-          <el-input v-model="listQuery.filter2" placeholder="请输入服务别名" />
+        <el-form-item label="应用设备">
+          <el-input v-model="listQuery.filter2" placeholder="请输入应用设备" />
         </el-form-item>
-        <el-form-item label="所属网关">
-          <el-input v-model="listQuery.filter3" placeholder="请输入所属网关" />
+        <el-form-item label="响应设备">
+          <el-input v-model="listQuery.filter3" placeholder="请输入响应设备" />
         </el-form-item>
         <el-form-item>
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
